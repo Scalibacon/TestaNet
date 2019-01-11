@@ -5,7 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import controller.TestarPingController;
+
+import controller.TestadorDePing;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -17,15 +18,13 @@ public class TelaDaPingada extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtQuedas;
+	private JTextField txtQuedas, txtIp, txtTempo, txtMedia;
 	private JTextArea txtAreaCmd;
 	private JScrollPane scrollpane;
 	private JButton btnStart;
-	private JLabel lblPseudocmd, lblQuedas;
+	private JLabel lblPseudocmd, lblQuedas, lblMedia;
 	
-	private TestarPingController testadorDePing;
-	private JTextField txtIp;
-	private JTextField txtTempo;
+	private TestadorDePing testadorDePing;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -44,9 +43,10 @@ public class TelaDaPingada extends JFrame {
 
 	public TelaDaPingada() {
 		super("Um teste pro foxtrotos");
+		setTitle("Testador de Ping \u2665");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 540, 320);
+		setBounds(100, 100, 540, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -54,15 +54,15 @@ public class TelaDaPingada extends JFrame {
 		
 		lblPseudocmd = new JLabel("PseudoCMD");
 		lblPseudocmd.setFont(new Font("Verdana", Font.PLAIN, 15));
-		lblPseudocmd.setBounds(176, 3, 97, 24);
+		lblPseudocmd.setBounds(176, 6, 97, 24);
 		contentPane.add(lblPseudocmd);
 		
 		txtAreaCmd = new JTextArea();
 		txtAreaCmd.setEditable(false);
-		txtAreaCmd.setBounds(10, 38, 400, 190);
+		txtAreaCmd.setBounds(10, 38, 400, 250);
 		
 		scrollpane = new JScrollPane(txtAreaCmd);
-		scrollpane.setBounds(10, 38, 400, 190);
+		scrollpane.setBounds(10, 38, 400, 250);
 		contentPane.add(scrollpane);				
 		
 		txtQuedas = new JTextField();
@@ -79,7 +79,7 @@ public class TelaDaPingada extends JFrame {
 		
 		btnStart = new JButton("Iniciar");
 		btnStart.setFont(new Font("Verdana", Font.PLAIN, 13));
-		btnStart.setBounds(417, 196, 89, 32);
+		btnStart.setBounds(420, 256, 89, 32);
 		contentPane.add(btnStart);		
 		
 		txtIp = new JTextField("8.8.8.8");
@@ -105,8 +105,19 @@ public class TelaDaPingada extends JFrame {
 		lblTempoCorrido.setBounds(417, 135, 97, 14);
 		contentPane.add(lblTempoCorrido);
 		
-		testadorDePing = new TestarPingController(txtAreaCmd, txtQuedas, btnStart, txtIp);
+		lblMedia = new JLabel("M\u00E9dia");
+		lblMedia.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblMedia.setBounds(417, 195, 97, 14);
+		contentPane.add(lblMedia);
 		
+		txtMedia = new JTextField();
+		txtMedia.setFont(new Font("Verdana", Font.PLAIN, 15));
+		txtMedia.setEditable(false);
+		txtMedia.setColumns(10);
+		txtMedia.setBounds(417, 219, 97, 26);
+		contentPane.add(txtMedia);
+		
+		testadorDePing = new TestadorDePing(txtAreaCmd, txtQuedas, btnStart, txtIp, txtTempo);		
 		btnStart.addActionListener(testadorDePing);	      
 	        
 	}
